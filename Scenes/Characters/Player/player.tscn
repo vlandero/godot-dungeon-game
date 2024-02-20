@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dn0lctwflt21n"]
+[gd_scene load_steps=47 format=3 uid="uid://dn0lctwflt21n"]
 
 [ext_resource type="Texture2D" uid="uid://dk0kpainrlh42" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_000.png" id="1_4n112"]
 [ext_resource type="Texture2D" uid="uid://blvdrcbo0dkka" path="res://Assets/Sprites/Characters/Player/Running/Running_000.png" id="1_7hwbp"]
@@ -99,7 +99,12 @@ _data = {
 "Move": SubResource("Animation_j0660")
 }
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iabxn"]
+radius = 0.562294
+height = 1.52075
+
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "SpriteNode", "StateMachineNode")]
+collision_layer = 2
 script = ExtResource("1_p0dvv")
 AnimPlayerNode = NodePath("AnimationPlayer")
 SpriteNode = NodePath("Sprite3D")
@@ -108,7 +113,7 @@ StateMachineNode = NodePath("StateMachine")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 pixel_size = 0.0025
 texture_filter = 0
-texture = ExtResource("37_nh0x1")
+texture = ExtResource("1_4n112")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -133,3 +138,7 @@ one_shot = true
 
 [node name="MoveState" type="Node" parent="StateMachine"]
 script = ExtResource("33_frf24")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0447278, 0.0319485, 0)
+shape = SubResource("CapsuleShape3D_iabxn")
