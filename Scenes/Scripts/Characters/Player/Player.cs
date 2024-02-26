@@ -1,19 +1,8 @@
 using Godot;
 using System;
 
-public partial class Player : CharacterBody3D
+public partial class Player : Character
 {
-    [ExportGroup("Required Nodes")]
-    [Export] public AnimationPlayer AnimPlayerNode { get; private set;}
-    [Export] public Sprite3D SpriteNode { get; private set;}
-    [Export] public StateMachine StateMachineNode { get; private set;}
-
-    public Vector2 direction = new();    
-    public override void _Ready()
-    {
-        
-    }
-
     public override void _Input(InputEvent @event)
     {
         direction = Input.GetVector(
@@ -22,14 +11,5 @@ public partial class Player : CharacterBody3D
             GameConstants.INPUT_MOVE_FORWARD,
             GameConstants.INPUT_MOVE_BACKWARD
         );
-    }
-
-    public void FlipSprite()
-    {
-        bool isNotMovingHorizontally = Velocity.X == 0;
-        if(isNotMovingHorizontally) return;
-
-        bool isMovingLeft = Velocity.X < 0;
-        SpriteNode.FlipH = isMovingLeft;
     }
 }

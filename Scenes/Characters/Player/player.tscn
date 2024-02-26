@@ -36,10 +36,10 @@
 [ext_resource type="Script" path="res://Scenes/Scripts/Characters/Player/PlayerMoveState.cs" id="33_frf24"]
 [ext_resource type="Texture2D" uid="uid://6ylkuvsmgpso" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_001.png" id="33_il1t0"]
 [ext_resource type="Texture2D" uid="uid://bsm7mqr3tpe0l" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_002.png" id="34_eb4j5"]
-[ext_resource type="Script" path="res://Scenes/Scripts/Characters/StateMachine.cs" id="34_iakbb"]
 [ext_resource type="Texture2D" uid="uid://e5qv8jxde8up" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_003.png" id="35_nalmv"]
 [ext_resource type="Texture2D" uid="uid://bq7otln6e6spk" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_004.png" id="36_wg3ss"]
 [ext_resource type="Texture2D" uid="uid://dy4hcmdu1cmev" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_005.png" id="37_nh0x1"]
+[ext_resource type="PackedScene" uid="uid://fr0jk84q1pcs" path="res://Scenes/Characters/state_machine.tscn" id="38_3yfn1"]
 [ext_resource type="Script" path="res://Scenes/Scripts/Characters/Player/PlayerDashState.cs" id="40_sb42l"]
 
 [sub_resource type="Animation" id="Animation_ky2yw"]
@@ -120,13 +120,15 @@ libraries = {
 "": SubResource("AnimationLibrary_ctphd")
 }
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("currentState", "states")]
-script = ExtResource("34_iakbb")
+[node name="StateMachine" parent="." node_paths=PackedStringArray("currentState", "states") instance=ExtResource("38_3yfn1")]
 currentState = NodePath("IdleState")
 states = [NodePath("IdleState"), NodePath("MoveState"), NodePath("DashState")]
 
 [node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("32_oxukq")
+
+[node name="MoveState" type="Node" parent="StateMachine"]
+script = ExtResource("33_frf24")
 
 [node name="DashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("dashTimerNode")]
 script = ExtResource("40_sb42l")
@@ -135,9 +137,6 @@ dashTimerNode = NodePath("Timer")
 [node name="Timer" type="Timer" parent="StateMachine/DashState"]
 wait_time = 0.4
 one_shot = true
-
-[node name="MoveState" type="Node" parent="StateMachine"]
-script = ExtResource("33_frf24")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0447278, 0.0319485, 0)
