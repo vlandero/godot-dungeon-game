@@ -3,14 +3,10 @@ using System;
 
 public partial class EnemyReturnState : EnemyState
 {
-    [Export(PropertyHint.Range, "0,20,0.1")] public float speed = 5;
-    private Vector3 destination;
     public override void _Ready()
     {
         base._Ready();
-        Vector3 localPos = characterNode.PathNode.Curve.GetPointPosition(0);
-        Vector3 globalPos = characterNode.PathNode.GlobalPosition;
-        destination = globalPos + localPos;
+        destination = GetPointsGlobalPosition(0);
     }
     protected override void EnterState()
     {
@@ -23,10 +19,9 @@ public partial class EnemyReturnState : EnemyState
     {
         if(characterNode.AgentNode.IsNavigationFinished())
         {
-            characterNode.StateMachineNode.SwitchState<EnemyIdleState>();
+            characterNode.StateMachineNode.SwitchState<EnemyPatrolState>();
             return;
         }
-        characterNode.Velocity = characterNode.GlobalPosition.DirectionTo(destination) * speed;
-        characterNode.MoveAndSlide();
+        Move();
     }
 }

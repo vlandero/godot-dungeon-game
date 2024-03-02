@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://t2pmxwtywb82"]
+[gd_scene load_steps=111 format=3 uid="uid://t2pmxwtywb82"]
 
 [ext_resource type="Texture2D" uid="uid://cp3oxj51h5b46" path="res://Assets/Sprites/Characters/Enemy Knight/Death/0_Demons_of_Darkness_Dying_000.png" id="1_2qx55"]
 [ext_resource type="Texture2D" uid="uid://bf7a7b5xh17dw" path="res://Assets/Sprites/Characters/Enemy Knight/Move/0_Demons_of_Darkness_Walking_023.png" id="1_3c0qi"]
@@ -102,6 +102,7 @@
 [ext_resource type="PackedScene" uid="uid://fr0jk84q1pcs" path="res://Scenes/Characters/state_machine.tscn" id="99_454fa"]
 [ext_resource type="Script" path="res://Scenes/Scripts/Characters/Enemy/EnemyIdleState.cs" id="100_sb1yp"]
 [ext_resource type="Script" path="res://Scenes/Scripts/Characters/Enemy/EnemyReturnState.cs" id="102_j60p3"]
+[ext_resource type="Script" path="res://Scenes/Scripts/Characters/Enemy/EnemyPatrolState.cs" id="103_a8idy"]
 
 [sub_resource type="Animation" id="Animation_3xyin"]
 resource_name = "aTTACK"
@@ -213,6 +214,7 @@ height = 1.55196
 
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "SpriteNode", "StateMachineNode", "AgentNode")]
 script = ExtResource("1_73udu")
+speed = 1.8
 AnimPlayerNode = NodePath("AnimationPlayer")
 SpriteNode = NodePath("Sprite3D")
 StateMachineNode = NodePath("StateMachine")
@@ -233,13 +235,16 @@ shape = SubResource("CapsuleShape3D_dmfw8")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("currentState", "states") instance=ExtResource("99_454fa")]
 currentState = NodePath("IdleState")
-states = [NodePath("IdleState"), NodePath("ReturnState")]
+states = [NodePath("IdleState"), NodePath("ReturnState"), NodePath("PatrolState")]
 
 [node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("100_sb1yp")
 
 [node name="ReturnState" type="Node" parent="StateMachine"]
 script = ExtResource("102_j60p3")
+
+[node name="PatrolState" type="Node" parent="StateMachine"]
+script = ExtResource("103_a8idy")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
