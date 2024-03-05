@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=3 uid="uid://t2pmxwtywb82"]
+[gd_scene load_steps=114 format=3 uid="uid://t2pmxwtywb82"]
 
 [ext_resource type="Texture2D" uid="uid://cp3oxj51h5b46" path="res://Assets/Sprites/Characters/Enemy Knight/Death/0_Demons_of_Darkness_Dying_000.png" id="1_2qx55"]
 [ext_resource type="Texture2D" uid="uid://bf7a7b5xh17dw" path="res://Assets/Sprites/Characters/Enemy Knight/Move/0_Demons_of_Darkness_Walking_023.png" id="1_3c0qi"]
@@ -104,6 +104,7 @@
 [ext_resource type="Script" path="res://Scenes/Scripts/Characters/Enemy/EnemyReturnState.cs" id="102_j60p3"]
 [ext_resource type="Script" path="res://Scenes/Scripts/Characters/Enemy/EnemyPatrolState.cs" id="103_a8idy"]
 [ext_resource type="Script" path="res://Scenes/Scripts/Characters/Enemy/EnemyChaseState.cs" id="104_3scl0"]
+[ext_resource type="Script" path="res://Scenes/Scripts/Characters/Enemy/EnemyAttackState.cs" id="105_221ju"]
 
 [sub_resource type="Animation" id="Animation_3xyin"]
 resource_name = "aTTACK"
@@ -261,6 +262,9 @@ updateChaseTimer = NodePath("Timer")
 [node name="Timer" type="Timer" parent="StateMachine/ChaseState"]
 wait_time = 0.5
 autostart = true
+
+[node name="AttackState" type="Node" parent="StateMachine"]
+script = ExtResource("105_221ju")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
